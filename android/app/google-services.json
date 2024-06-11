@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "613806457783",
+    "project_id": "mentora-admin-14bf8",
+    "storage_bucket": "mentora-admin-14bf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613806457783:android:2d95110d687fa92a67de32",
+        "android_client_info": {
+          "package_name": "br.com.mentorasolucoes.mentora_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2Hvb2LX17m5fwHvPd6U93OeCc9iQzu5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
