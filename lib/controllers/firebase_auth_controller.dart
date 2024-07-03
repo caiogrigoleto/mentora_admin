@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mentora_admin/view/login.dart';
@@ -27,6 +28,8 @@ class AuthController extends GetxController {
   void login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      print(fcmToken);
       Get.to(Principal());
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -35,6 +38,6 @@ class AuthController extends GetxController {
 
   void signOut() async {
     await _auth.signOut();
-    Get.to(Login());
+    Get.offAll(Login());
   }
 }

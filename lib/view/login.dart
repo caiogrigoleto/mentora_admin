@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentora_admin/controllers/fcm_controller.dart';
 import 'package:mentora_admin/controllers/firebase_auth_controller.dart';
 
 class Login extends StatelessWidget {
@@ -7,57 +11,83 @@ class Login extends StatelessWidget {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final FCMController fcmController = Get.put(FCMController());
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              authController.signOut();
-            },
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'lib/assets/background.png',
+            fit: BoxFit.cover,
+          ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'lib/assets/logo.png',
+                    height: MediaQuery.of(context).size.height * 0.3,
+                  ),
+                  const SizedBox(height: 32.0),
+                  Text(
+                    'Acesso Mentora Admin',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 32.0), // Add some spacing
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                      labelText: 'Senha',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      ),
+                    ),
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 16.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      String email = emailController.text.trim();
+                      String password = passwordController.text.trim();
+
+                      if (email.isEmpty || password.isEmpty) {
+                        Get.snackbar('Alerta', 'Por favor preencha os dados',
+                            backgroundColor: Colors.orange,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM,
+                            animationDuration:
+                                const Duration(milliseconds: 2000));
+                      } else {
+                        authController.login(email, password);
+                      }
+                    },
+                    child: const Text('Entrar'),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                String email = emailController.text.trim();
-                String password = passwordController.text.trim();
-
-                if (email.isEmpty || password.isEmpty) {
-                  Get.snackbar('Error', 'Please fill in all fields');
-                } else {
-                  authController.login(email, password);
-                }
-              },
-              child: const Text('Login'),
-            ),
-          ],
-        ),
       ),
     );
   }

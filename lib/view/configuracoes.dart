@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentora_admin/controllers/configuracoes_controller.dart';
+import 'package:mentora_admin/utils/ThemeDataUtils.dart';
 
 class Configuracoes extends StatelessWidget {
   final SettingsController settingsController = Get.put(SettingsController());
@@ -17,20 +18,20 @@ class Configuracoes extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Obx(() => SwitchListTile(
-                  title: const Text('Dark Theme'),
+                  title: const Text('Modo Escuro'),
+                  activeColor: Theme.of(context).colorScheme.primary,
                   value: settingsController.isDarkTheme.value,
                   onChanged: (bool value) async {
                     settingsController.toggleTheme();
-                    Get.changeTheme(
-                      settingsController.isDarkTheme.value
-                          ? ThemeData.dark()
-                          : ThemeData.light(),
-                    );
+                    Get.changeTheme(settingsController.isDarkTheme.value
+                        ? ThemeDataUtilsDark.DarkTheme
+                        : ThemeDataUtilsLight.LightTheme);
                     await Get.forceAppUpdate();
                   },
                 )),
             Obx(() => SwitchListTile(
-                  title: const Text('Enable Notifications'),
+                  title: const Text('Ativar Notificações'),
+                  activeColor: Theme.of(context).colorScheme.primary,
                   value: settingsController.isNotificationEnabled.value,
                   onChanged: (bool value) {
                     settingsController.toggleNotification();
