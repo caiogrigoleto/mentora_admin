@@ -1,9 +1,13 @@
+import 'dart:io' show Platform;
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mentora_admin/controllers/configuracoes_controller.dart';
 import 'package:mentora_admin/firebase_options.dart';
+import 'package:mentora_admin/services/sync_service.dart';
 import 'package:mentora_admin/utils/ThemeDataUtils.dart';
 import 'package:mentora_admin/view/login.dart';
 
@@ -12,15 +16,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  await Hive.initFlutter();
+  await Hive.openBox("offlineData");
   runApp(MentoraAdmin());
+  SyncService();
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MentoraAdmin extends StatelessWidget {

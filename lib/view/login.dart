@@ -1,16 +1,11 @@
-import 'dart:ffi';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentora_admin/controllers/fcm_controller.dart';
 import 'package:mentora_admin/controllers/firebase_auth_controller.dart';
+import 'package:mentora_admin/services/user_services.dart';
 
 class Login extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,7 @@ class Login extends StatelessWidget {
                   ),
                   const SizedBox(height: 32.0), // Add some spacing
                   TextField(
-                    controller: emailController,
+                    controller: authController.usernameController.value,
                     decoration: const InputDecoration(
                       labelText: 'Email',
                       border: OutlineInputBorder(
@@ -55,7 +50,7 @@ class Login extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   TextField(
-                    controller: passwordController,
+                    controller: authController.passwordController.value,
                     decoration: const InputDecoration(
                       labelText: 'Senha',
                       border: OutlineInputBorder(
@@ -67,8 +62,9 @@ class Login extends StatelessWidget {
                   const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () {
-                      String email = emailController.text.trim();
-                      String password = passwordController.text.trim();
+                      var email = authController.usernameController.value.text;
+                      var password =
+                          authController.passwordController.value.text;
 
                       if (email.isEmpty || password.isEmpty) {
                         Get.snackbar('Alerta', 'Por favor preencha os dados',

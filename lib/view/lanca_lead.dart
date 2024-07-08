@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentora_admin/controllers/lanca_lead_controller.dart';
-import 'package:mentora_admin/view/leads.dart';
+import 'package:mentora_admin/services/all_services.dart';
 
 class LancaLead extends StatelessWidget {
   final LeadsController controller = Get.put(LeadsController());
@@ -28,22 +28,28 @@ class LancaLead extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextField(
+                      inputFormatters: [UpperCaseTextFormatter()],
                       onChanged: (value) =>
                           controller.nomeFantasia.value = value,
-                      decoration:
-                          const InputDecoration(labelText: 'Nome Fantasia'),
+                      decoration: const InputDecoration(
+                        labelText: 'Nome Fantasia',
+                      ),
                     ),
                     TextField(
+                      inputFormatters: [UpperCaseTextFormatter()],
                       onChanged: (value) =>
                           controller.nomeContato.value = value,
                       decoration:
                           const InputDecoration(labelText: 'Nome do Contato'),
                     ),
                     TextField(
-                      onChanged: (value) =>
-                          controller.celularContato.value = value,
+                      controller: controller.celularMask,
+                      keyboardType: TextInputType.phone,
                       decoration: const InputDecoration(
-                          labelText: 'Celular do Contato'),
+                        labelText: 'Celular do Contato',
+                        hintText: '(99) 99999-9999',
+                      ),
+                      onChanged: (value) => controller.atualizaCelular(value),
                     ),
                     TextField(
                       onChanged: (value) =>
@@ -51,6 +57,12 @@ class LancaLead extends StatelessWidget {
                       decoration:
                           const InputDecoration(labelText: 'Email do Contato'),
                     ),
+                    TextField(
+                        onChanged: (value) =>
+                            controller.observacao.value = value,
+                        decoration:
+                            const InputDecoration(labelText: 'Observação'),
+                        maxLines: 5),
                     const SizedBox(height: 16.0),
                     Obx(
                       () => CheckboxListTile(
@@ -64,7 +76,7 @@ class LancaLead extends StatelessWidget {
                     ),
                     const SizedBox(height: 16.0),
                     Obx(() => Text(
-                        'Data de Criação: ${DateFormat('dd/MM/yyyy').format(controller.dataCriacao.value)}')),
+                        'Data de Criação:  ${DateFormat('dd/MM/yyyy').format(controller.dataCriacao.value)}')),
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {

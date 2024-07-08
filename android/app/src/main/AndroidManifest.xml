@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.mentorasolucoes.mentora_admin">
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
    <application
-        android:label="mentora_admin"
+        android:label="Mentora Admin"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

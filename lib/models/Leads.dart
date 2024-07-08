@@ -1,5 +1,6 @@
 class LeadsModel {
   String? id;
+  String? userId;
   String? nomeFantasia;
   String? nomeContato;
   String? celularContato;
@@ -8,6 +9,7 @@ class LeadsModel {
 
   LeadsModel(
       {this.id,
+      this.userId,
       this.nomeFantasia,
       this.nomeContato,
       this.celularContato,
@@ -17,6 +19,7 @@ class LeadsModel {
   factory LeadsModel.fromDocument(Map<String, dynamic> doc) {
     return LeadsModel(
       id: doc['id'],
+      userId: doc['userId'],
       nomeFantasia: doc['nomeFantasia'],
       nomeContato: doc['nomeContato'],
       celularContato: doc['celularContato'],

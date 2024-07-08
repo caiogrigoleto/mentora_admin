@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:mentora_admin/models/User.dart';
 
 class UserService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String _collection = 'users';
+  final storage = FlutterSecureStorage();
 
   // Método para criar ou atualizar um usuário
   Future<void> createUser(UserModel user) async {
@@ -57,5 +59,16 @@ class UserService extends GetxService {
     } catch (e) {
       print('Error deleting user: $e');
     }
+  }
+
+  Future<void> saveCredentials(String username, String password) async {
+    await storage.write(key: 'username', value: username);
+    await storage.write(key: 'password', value: password);
+  }
+
+  Future<Map<String, String>> getCredentials() async {
+    String? username = await storage.read(key: 'username');
+    String? password = await storage.read(key: 'password');
+    return {'username': username ?? '', 'password': password ?? ''};
   }
 }
