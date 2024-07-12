@@ -92,7 +92,7 @@ class Login extends StatelessWidget {
                     child: Image.asset('lib/assets/poweredby.png', height: 60),
                   ),
                   const SizedBox(height: 20.0),
-                  const Text('Versão 1.0.1'),
+                  const Text('Versão 1.0.2'),
                 ],
               ),
             ),
