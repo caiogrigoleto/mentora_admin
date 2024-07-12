@@ -16,9 +16,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   await Hive.initFlutter();
   await Hive.openBox("offlineData");
   runApp(MentoraAdmin());

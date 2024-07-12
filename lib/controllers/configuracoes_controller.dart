@@ -3,6 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    loadUserSettings();
+  }
+
   // Estado para gerenciar o tema
   var isDarkTheme = false.obs;
 
@@ -21,13 +27,7 @@ class SettingsController extends GetxController {
     saveUserSettings();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadUserSettings();
-  }
-
-  void loadUserSettings() async {
+  Future<void> loadUserSettings() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
@@ -37,17 +37,17 @@ class SettingsController extends GetxController {
             .get();
         if (userDoc.exists) {
           var data = userDoc.data() as Map<String, dynamic>;
-          isDarkTheme.value = data['theme'] ?? 'light';
-          isNotificationEnabled.value = data['notifications'] ?? true;
+          isDarkTheme.value = data['theme'];
+          isNotificationEnabled.value = data['notifications'];
         }
       }
     } catch (e) {
       Get.snackbar('Erro', 'Erro ao carregar configurações: $e',
-          snackPosition: SnackPosition.BOTTOM);
+          snackPosition: SnackPosition.TOP);
     }
   }
 
-  void saveUserSettings() async {
+  Future<void> saveUserSettings() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {

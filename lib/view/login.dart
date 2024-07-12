@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentora_admin/controllers/fcm_controller.dart';
 import 'package:mentora_admin/controllers/firebase_auth_controller.dart';
-import 'package:mentora_admin/services/user_services.dart';
 
 class Login extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
@@ -59,7 +58,7 @@ class Login extends StatelessWidget {
                     ),
                     obscureText: true,
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 32.0),
                   ElevatedButton(
                     onPressed: () {
                       var email = authController.usernameController.value.text;
@@ -77,8 +76,23 @@ class Login extends StatelessWidget {
                         authController.login(email, password);
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      padding: const EdgeInsets.all(16.0),
+                      primary: Theme.of(context).colorScheme.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
                     child: const Text('Entrar'),
                   ),
+                  const SizedBox(height: 50.0),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Image.asset('lib/assets/poweredby.png', height: 60),
+                  ),
+                  const SizedBox(height: 20.0),
+                  const Text('Versão 1.0.1'),
                 ],
               ),
             ),

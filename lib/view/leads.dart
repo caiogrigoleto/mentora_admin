@@ -24,7 +24,7 @@ class _LeadsState extends State<Leads> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(LancaLead());
+          Get.to(LancaLead())?.then((value) => {controller.loadPendingData()});
         },
         child: const Icon(Icons.add),
       ),
@@ -49,7 +49,7 @@ class _LeadsState extends State<Leads> {
             ),
           );
         }),
-        const Text('DADOS PENDENTES'),
+        const Text('LEADS PENDENTES'),
         Obx(() {
           if (controller.pendingData.isEmpty) {
             return const Center(child: Text('Nenhum dado pendente.'));

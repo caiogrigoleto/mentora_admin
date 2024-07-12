@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mentora_admin/controllers/configuracoes_controller.dart';
 import 'package:mentora_admin/controllers/lanca_lead_controller.dart';
 import 'package:mentora_admin/services/user_services.dart';
+import 'package:mentora_admin/utils/NetworkMonitor.dart';
 import 'package:mentora_admin/view/login.dart';
 import 'package:mentora_admin/view/principal.dart';
 
@@ -14,9 +15,12 @@ class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
   Rxn<User> _firebaseUser = Rxn<User>();
   final storage = UserService();
+  final NetworkMonitor networkMonitor = NetworkMonitor();
+  late bool isConection;
 
   final usernameController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
+  final username = ''.obs;
 
   User? get user => _firebaseUser.value;
   SettingsController settingsController = Get.find<SettingsController>();
@@ -45,18 +49,32 @@ class AuthController extends GetxController {
   }
 
   void login(String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      // if (Platform.isAndroid) {
-      //   final fcmToken = await FirebaseMessaging.instance.getToken();
-      //   print(fcmToken);
-      // }
-
-      settingsController.loadUserSettings();
-      storage.saveCredentials(email, password);
-      Get.to(Principal());
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
+    isConection = await networkMonitor.checkConnection();
+    if (!isConection) {
+      var credentials = await storage.getCredentials();
+      Get.snackbar('Error', 'Sem conexão',
+          backgroundColor: Colors.red, colorText: Colors.white);
+      if (email == credentials['username'] &&
+          password == credentials['password']) {
+        settingsController.loadUserSettings();
+        getUsername();
+        Get.to(Principal());
+      } else {
+        Get.snackbar('Usuário ou senha inválidos', '',
+            backgroundColor: Colors.red, colorText: Colors.white);
+      }
+    } else {
+      try {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        print(fcmToken);
+        settingsController.loadUserSettings();
+        storage.saveCredentials(email, password);
+        Get.to(Principal());
+      } catch (e) {
+        Get.snackbar('Error', e.toString());
+      }
     }
   }
 
@@ -70,6 +88,10 @@ class AuthController extends GetxController {
     var credentials = await storage.getCredentials();
 
     setUsername(credentials['username'] ?? '');
+  }
+
+  void getUsername() {
+    username.value = usernameController.value.text;
   }
 
   void setUsername(String username) {

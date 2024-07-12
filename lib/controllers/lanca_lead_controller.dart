@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:mentora_admin/controllers/firebase_auth_controller.dart';
 import 'package:mentora_admin/utils/NetworkMonitor.dart';
 
 class LeadsController extends GetxController {
@@ -22,7 +23,8 @@ class LeadsController extends GetxController {
 
   var leadsList = <Map<String, dynamic>>[].obs;
   final Box _box = Hive.box('offlineData');
-  RxList<Map<String, dynamic>> pendingData = <Map<String, dynamic>>[].obs;
+  var pendingData = <Map<String, dynamic>>[].obs;
+  final AuthController authController = Get.put(AuthController());
 
   @override
   void onInit() {
@@ -32,9 +34,15 @@ class LeadsController extends GetxController {
   }
 
   @override
+  void onResumed() {
+    loadPendingData();
+  }
+
+  @override
   void onReady() {
     super.onReady();
     ever(leadsList, (_) => fetchLeads());
+    ever(pendingData, (_) => loadPendingData());
   }
 
   void loadPendingData() {
@@ -77,6 +85,11 @@ class LeadsController extends GetxController {
   }
 
   void saveLead() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      authController.login(authController.usernameController.value.text,
+          authController.passwordController.value.text);
+    }
     if (nomeFantasia.isEmpty || nomeContato.isEmpty || celularContato.isEmpty) {
       Get.snackbar(
         'Alerta',
