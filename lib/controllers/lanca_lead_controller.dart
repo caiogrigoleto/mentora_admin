@@ -15,6 +15,10 @@ class LeadsController extends GetxController {
   final RxString celularContato = ''.obs;
   final RxString emailContato = ''.obs;
   final RxString observacao = ''.obs;
+  final RxString sistema = ''.obs;
+  final RxString valor = ''.obs;
+  final RxInt satisfeito = 1.obs;
+  final RxString escritorio = ''.obs;
   final RxBool disparaMensagem = false.obs;
   final Rx<DateTime> dataCriacao = DateTime.now().obs;
 
@@ -112,6 +116,10 @@ class LeadsController extends GetxController {
           'emailContato': emailContato.value,
           'observacao': observacao.value,
           'disparaMensagem': disparaMensagem.value,
+          'sistema': sistema.value,
+          'valor': valor.value,
+          'satisfeito': satisfeito.value,
+          'escritorio': escritorio.value,
           'dataCriacao': DateFormat('dd/MM/yyyy').format(dataCriacao.value),
         });
 
@@ -132,6 +140,10 @@ class LeadsController extends GetxController {
         emailContato.value = '';
         observacao.value = '';
         disparaMensagem.value = false;
+        sistema.value = '';
+        valor.value = '';
+        satisfeito.value = 1;
+        escritorio.value = '';
         celularMask.text = '';
       } catch (e) {
         Get.snackbar(

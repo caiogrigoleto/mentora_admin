@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:mentora_admin/controllers/lanca_lead_controller.dart';
-import 'package:intl/intl.dart';
+import 'package:mentora_admin/utils/ThemeDataUtils.dart';
 import 'package:mentora_admin/view/lanca_lead.dart';
 
 class Leads extends StatefulWidget {
@@ -20,7 +19,10 @@ class _LeadsState extends State<Leads> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Lista de Leads'),
+        iconTheme: ThemeDataUtilsDark.DarkTheme.iconTheme,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title:
+            const Text('Lista de Leads', style: TextStyle(color: Colors.white)),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

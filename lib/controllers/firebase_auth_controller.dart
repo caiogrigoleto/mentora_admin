@@ -71,6 +71,7 @@ class AuthController extends GetxController {
         print(fcmToken);
         settingsController.loadUserSettings();
         storage.saveCredentials(email, password);
+        getUsername();
         Get.to(Principal());
       } catch (e) {
         Get.snackbar('Error', e.toString());
