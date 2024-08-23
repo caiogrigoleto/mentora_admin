@@ -56,18 +56,14 @@ class LancaLead extends StatelessWidget {
                       onChanged: (value) => controller.atualizaCelular(value),
                     ),
                     TextField(
-                      onChanged: (value) =>
-                          controller.emailContato.value = value,
-                      decoration:
-                          const InputDecoration(labelText: 'Email do Contato'),
-                    ),
-                    TextField(
                       onChanged: (value) => controller.sistema.value = value,
-                      decoration: const InputDecoration(labelText: 'Sistema'),
+                      decoration:
+                          const InputDecoration(labelText: 'Sistema Atual'),
                     ),
                     TextField(
                       onChanged: (value) => controller.valor.value = value,
-                      decoration: const InputDecoration(labelText: 'Valor R\$'),
+                      decoration: const InputDecoration(
+                          labelText: 'Valor que paga hoje'),
                     ),
                     const SizedBox(height: 16.0),
                     const Text('Satisfeito com o sistema?'),
@@ -89,6 +85,16 @@ class LancaLead extends StatelessWidget {
                               const Text('Sim'),
                               Obx(
                                 () => Radio(
+                                  value: 2,
+                                  onChanged: (value) {
+                                    controller.satisfeito.value = 2;
+                                  },
+                                  groupValue: controller.satisfeito.value,
+                                ),
+                              ),
+                              const Text('Nenhum'),
+                              Obx(
+                                () => Radio(
                                   value: 0,
                                   onChanged: (value) {
                                     controller.satisfeito.value = 0;
@@ -102,12 +108,92 @@ class LancaLead extends StatelessWidget {
                         ],
                       ),
                     ),
-                    TextField(
-                        onChanged: (value) =>
-                            controller.observacao.value = value,
-                        decoration:
-                            const InputDecoration(labelText: 'Observação'),
-                        maxLines: 5),
+                    const SizedBox(height: 16.0),
+                    const Text('Suporte deles é bom?'),
+                    Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Obx(
+                                () => Radio(
+                                  value: 1,
+                                  onChanged: (value) {
+                                    controller.suporte.value = 1;
+                                  },
+                                  groupValue: controller.suporte.value,
+                                ),
+                              ),
+                              const Text('Sim'),
+                              Obx(
+                                () => Radio(
+                                  value: 2,
+                                  onChanged: (value) {
+                                    controller.suporte.value = 2;
+                                  },
+                                  groupValue: controller.suporte.value,
+                                ),
+                              ),
+                              const Text('Nenhum'),
+                              Obx(
+                                () => Radio(
+                                  value: 0,
+                                  onChanged: (value) {
+                                    controller.suporte.value = 0;
+                                  },
+                                  groupValue: controller.suporte.value,
+                                ),
+                              ),
+                              const Text('Não'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    const Text('Atendimento rápido?'),
+                    Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Obx(
+                                () => Radio(
+                                  value: 1,
+                                  onChanged: (value) {
+                                    controller.atendimento.value = 1;
+                                  },
+                                  groupValue: controller.atendimento.value,
+                                ),
+                              ),
+                              const Text('Sim'),
+                              Obx(
+                                () => Radio(
+                                  value: 2,
+                                  onChanged: (value) {
+                                    controller.atendimento.value = 2;
+                                  },
+                                  groupValue: controller.atendimento.value,
+                                ),
+                              ),
+                              const Text('Nenhum'),
+                              Obx(
+                                () => Radio(
+                                  value: 0,
+                                  onChanged: (value) {
+                                    controller.atendimento.value = 0;
+                                  },
+                                  groupValue: controller.atendimento.value,
+                                ),
+                              ),
+                              const Text('Não'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     TextField(
                       onChanged: (value) => controller.escritorio.value = value,
                       decoration: const InputDecoration(
@@ -125,6 +211,12 @@ class LancaLead extends StatelessWidget {
                         },
                       ),
                     ),
+                    TextField(
+                        onChanged: (value) =>
+                            controller.observacao.value = value,
+                        decoration:
+                            const InputDecoration(labelText: 'Observação'),
+                        maxLines: 5),
                     const SizedBox(height: 16.0),
                     Obx(() => Text(
                         'Data de Criação:  ${DateFormat('dd/MM/yyyy').format(controller.dataCriacao.value)}')),

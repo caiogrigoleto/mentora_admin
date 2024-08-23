@@ -13,11 +13,12 @@ class LeadsController extends GetxController {
   final RxString nomeFantasia = ''.obs;
   final RxString nomeContato = ''.obs;
   final RxString celularContato = ''.obs;
-  final RxString emailContato = ''.obs;
   final RxString observacao = ''.obs;
   final RxString sistema = ''.obs;
   final RxString valor = ''.obs;
-  final RxInt satisfeito = 1.obs;
+  final RxInt satisfeito = 2.obs;
+  final RxInt suporte = 2.obs;
+  final RxInt atendimento = 2.obs;
   final RxString escritorio = ''.obs;
   final RxBool disparaMensagem = false.obs;
   final Rx<DateTime> dataCriacao = DateTime.now().obs;
@@ -113,12 +114,13 @@ class LeadsController extends GetxController {
           'userId': user?.uid,
           'nomeContato': nomeContato.value,
           'celularContato': removeNonNumeric(celularContato.value),
-          'emailContato': emailContato.value,
           'observacao': observacao.value,
           'disparaMensagem': disparaMensagem.value,
           'sistema': sistema.value,
           'valor': valor.value,
           'satisfeito': satisfeito.value,
+          'suporte': suporte.value,
+          'atendimento': atendimento.value,
           'escritorio': escritorio.value,
           'dataCriacao': DateFormat('dd/MM/yyyy').format(dataCriacao.value),
         });
@@ -137,12 +139,13 @@ class LeadsController extends GetxController {
         nomeFantasia.value = '';
         nomeContato.value = '';
         celularContato.value = '';
-        emailContato.value = '';
         observacao.value = '';
         disparaMensagem.value = false;
         sistema.value = '';
         valor.value = '';
-        satisfeito.value = 1;
+        satisfeito.value = 2;
+        suporte.value = 2;
+        atendimento.value = 2;
         escritorio.value = '';
         celularMask.text = '';
       } catch (e) {

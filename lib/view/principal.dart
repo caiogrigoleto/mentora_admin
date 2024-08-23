@@ -18,6 +18,7 @@ class Principal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: drawerController.scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         iconTheme: ThemeDataUtilsDark.DarkTheme.iconTheme,
@@ -66,16 +67,16 @@ class Principal extends StatelessWidget {
                 Get.to(Principal());
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.person, color: Colors.green),
-              title: const Text(
-                'Clientes',
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Get.to(const ListaClientes());
-              },
-            ),
+            // ListTile(
+            //   leading: const Icon(Icons.person, color: Colors.green),
+            //   title: const Text(
+            //     'Clientes',
+            //   ),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Get.to(const ListaClientes());
+            //   },
+            // ),
             ListTile(
               leading: const Icon(Icons.list, color: Colors.green),
               title: const Text('Leads'),
@@ -94,20 +95,6 @@ class Principal extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings Screen'),
-      ),
-      body: const Center(
-        child: Text('Settings Screen Content'),
       ),
     );
   }
