@@ -1159,6 +1159,8 @@ PODS:
   - PromisesObjC (2.4.0)
   - Reachability (3.7.6)
   - RecaptchaInterop (100.0.0)
+  - url_launcher_ios (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
@@ -1171,6 +1173,7 @@ DEPENDENCIES:
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - local_auth_darwin (from `.symlinks/plugins/local_auth_darwin/darwin`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -1219,6 +1222,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/local_auth_darwin/darwin"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
@@ -1254,6 +1259,7 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   Reachability: fd0ecd23705e2599e4cceeb943222ae02296cbc6
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
 
 PODFILE CHECKSUM: 62685de7f830bc7f7268d41611b8211143cbff8f
 

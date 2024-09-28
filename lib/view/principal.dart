@@ -96,6 +96,32 @@ class Principal extends StatelessWidget {
           ],
         ),
       ),
+      body: PrincipalLayout(),
+    );
+  }
+
+  Widget PrincipalLayout() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'lib/assets/poweredby.png', // Caminho da sua logo
+            height: 100, // Ajuste o tamanho conforme necessário
+          ),
+          const SizedBox(height: 20), // Espaço entre a logo e os registros
+          Obx(() {
+            if (drawerController.recordCount.value == 0) {
+              return const Text('Nenhum lead registrado.');
+            } else {
+              return Text(
+                'Você possui ${drawerController.recordCount.value} leads registrados.',
+                style: const TextStyle(fontSize: 20),
+              );
+            }
+          }),
+        ],
+      ),
     );
   }
 }

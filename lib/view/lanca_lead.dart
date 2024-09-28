@@ -208,9 +208,28 @@ class LancaLead extends StatelessWidget {
                         activeColor: Theme.of(context).colorScheme.primary,
                         onChanged: (value) {
                           controller.disparaMensagem.value = value!;
+                          controller.isChecked.value = value;
                         },
                       ),
                     ),
+                    Obx(() {
+                      if (controller.isChecked.value) {
+                        return TextButton(
+                          onPressed: () {
+                            controller.pickDate(context);
+                          },
+                          child: Text("Selecione a data"),
+                        );
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    }),
+                    Obx(() {
+                      String dateText = controller.selectedDate.value != null
+                          ? 'Data Selecionada: ${DateFormat('dd/MM/yyyy').format(controller.selectedDate.value!)}'
+                          : 'Nenhuma data selecionada';
+                      return Text(dateText);
+                    }),
                     TextField(
                         onChanged: (value) =>
                             controller.observacao.value = value,

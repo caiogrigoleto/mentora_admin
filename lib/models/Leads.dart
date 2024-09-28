@@ -4,11 +4,15 @@ class LeadsModel {
   String? nomeFantasia;
   String? nomeContato;
   String? celularContato;
-  String? emailContato;
   String? sistema;
   String? valor;
   int? satisfeito;
+  int? suporte;
+  int? atendimento;
   String? escritorio;
+  String? observacao;
+
+  DateTime? dataVoltaAtendimento;
   DateTime? dataCriacao;
 
   LeadsModel(
@@ -17,11 +21,14 @@ class LeadsModel {
       this.nomeFantasia,
       this.nomeContato,
       this.celularContato,
-      this.emailContato,
       this.sistema,
       this.valor,
       this.satisfeito,
       this.escritorio,
+      this.observacao,
+      this.dataVoltaAtendimento,
+      this.atendimento,
+      this.suporte,
       this.dataCriacao});
 
   factory LeadsModel.fromDocument(Map<String, dynamic> doc) {
@@ -31,8 +38,15 @@ class LeadsModel {
       nomeFantasia: doc['nomeFantasia'],
       nomeContato: doc['nomeContato'],
       celularContato: doc['celularContato'],
-      emailContato: doc['emailContato'],
       dataCriacao: doc['dataCriacao'],
+      sistema: doc['sistema'],
+      valor: doc['valor'],
+      satisfeito: doc['satisfeito'],
+      escritorio: doc['escritorio'],
+      observacao: doc['observacao'],
+      dataVoltaAtendimento: doc['dataVoltaAtendimento'],
+      atendimento: doc['atendimento'],
+      suporte: doc['suporte'],
     );
   }
 }

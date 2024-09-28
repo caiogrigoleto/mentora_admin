@@ -23,6 +23,9 @@ class LeadsController extends GetxController {
   final RxBool disparaMensagem = false.obs;
   final Rx<DateTime> dataCriacao = DateTime.now().obs;
 
+  var isChecked = false.obs;
+  var selectedDate = Rx<DateTime?>(null);
+
   final MaskedTextController celularMask =
       MaskedTextController(mask: '(00) 00000-0000');
 
@@ -64,9 +67,12 @@ class LeadsController extends GetxController {
             .collection('leads')
             .where('userId', isEqualTo: user.uid)
             .get();
-        leadsList.value = querySnapshot.docs
-            .map((doc) => doc.data() as Map<String, dynamic>)
-            .toList();
+        leadsList.value = querySnapshot.docs.map((doc) {
+          return {
+            'id': doc.id,
+            ...doc.data() as Map<String, dynamic>,
+          };
+        }).toList();
       } else {
         Get.snackbar(
           'Alerta',
@@ -122,6 +128,7 @@ class LeadsController extends GetxController {
           'suporte': suporte.value,
           'atendimento': atendimento.value,
           'escritorio': escritorio.value,
+          'dataVoltaAtendimento': selectedDate.value,
           'dataCriacao': DateFormat('dd/MM/yyyy').format(dataCriacao.value),
         });
 
@@ -148,6 +155,8 @@ class LeadsController extends GetxController {
         atendimento.value = 2;
         escritorio.value = '';
         celularMask.text = '';
+        selectedDate.value = null;
+        isChecked.value = false;
       } catch (e) {
         Get.snackbar(
           'Alerta',
@@ -187,5 +196,36 @@ class LeadsController extends GetxController {
 
   String removeNonNumeric(String input) {
     return input.replaceAll(RegExp(r'[^0-9]'), '');
+  }
+
+  void toggleCheckbox(bool value) {
+    isChecked.value = value;
+    if (!value) {
+      selectedDate.value = null;
+    }
+  }
+
+  void pickDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (pickedDate != null) {
+      selectedDate.value = pickedDate;
+    }
+  }
+
+  void deleteLead(String leadId) async {
+    try {
+      await FirebaseFirestore.instance.collection('leads').doc(leadId).delete();
+      leadsList.removeWhere((lead) => lead['id'] == leadId);
+      Get.snackbar('Sucesso', 'Lead excluído com sucesso!',
+          snackPosition: SnackPosition.BOTTOM);
+    } catch (e) {
+      Get.snackbar('Erro', 'Não foi possível excluir o lead.',
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }
