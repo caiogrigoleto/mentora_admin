@@ -35,35 +35,334 @@ class LancaLead extends StatelessWidget {
                       inputFormatters: [UpperCaseTextFormatter()],
                       onChanged: (value) =>
                           controller.nomeFantasia.value = value,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              // ignore: unnecessary_const
+                              const BorderRadius.all(const Radius.circular(5)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
                         labelText: 'Nome Fantasia',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                     ),
+                    const SizedBox(height: 10.0),
                     TextField(
                       inputFormatters: [UpperCaseTextFormatter()],
                       onChanged: (value) =>
                           controller.nomeContato.value = value,
-                      decoration:
-                          const InputDecoration(labelText: 'Nome do Contato'),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              // ignore: unnecessary_const
+                              const BorderRadius.all(const Radius.circular(5)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        labelText: 'Nome do Contato',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
                     ),
+                    const SizedBox(height: 10.0),
                     TextField(
                       controller: controller.celularMask,
                       keyboardType: TextInputType.phone,
-                      decoration: const InputDecoration(
-                        labelText: 'Celular do Contato',
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              // ignore: unnecessary_const
+                              const BorderRadius.all(const Radius.circular(5)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        labelText: 'Celular Contato',
                         hintText: '(99) 99999-9999',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                       onChanged: (value) => controller.atualizaCelular(value),
                     ),
+                    const SizedBox(height: 10.0),
                     TextField(
+                      inputFormatters: [UpperCaseTextFormatter()],
                       onChanged: (value) => controller.sistema.value = value,
-                      decoration:
-                          const InputDecoration(labelText: 'Sistema Atual'),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              // ignore: unnecessary_const
+                              const BorderRadius.all(const Radius.circular(5)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        labelText: 'Sistema Atual',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
                     ),
+                    const SizedBox(height: 10.0),
                     TextField(
                       onChanged: (value) => controller.valor.value = value,
-                      decoration: const InputDecoration(
-                          labelText: 'Valor que paga hoje'),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              // ignore: unnecessary_const
+                              const BorderRadius.all(const Radius.circular(5)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        labelText: 'Valor Atual',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Card(
+                      child: ExpansionTile(
+                          title: Text(
+                            "Endereço",
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          children: <Widget>[
+                            Column(children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  onChanged: (value) =>
+                                      controller.endRua.value = value,
+                                  inputFormatters: [UpperCaseTextFormatter()],
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(5),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          // ignore: unnecessary_const
+                                          const BorderRadius.all(
+                                              const Radius.circular(5)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    labelText: 'Rua',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  onChanged: (value) =>
+                                      controller.endNumero.value = value,
+                                  inputFormatters: [UpperCaseTextFormatter()],
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(5),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          // ignore: unnecessary_const
+                                          const BorderRadius.all(
+                                              const Radius.circular(5)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    labelText: 'Numero',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  onChanged: (value) =>
+                                      controller.endBairro.value = value,
+                                  inputFormatters: [UpperCaseTextFormatter()],
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(5),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          // ignore: unnecessary_const
+                                          const BorderRadius.all(
+                                              const Radius.circular(5)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    labelText: 'Bairro',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  onChanged: (value) =>
+                                      controller.endComplemento.value = value,
+                                  inputFormatters: [UpperCaseTextFormatter()],
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(5),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          // ignore: unnecessary_const
+                                          const BorderRadius.all(
+                                              const Radius.circular(5)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    labelText: 'Complemento',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  onChanged: (value) =>
+                                      controller.endCidade.value = value,
+                                  inputFormatters: [UpperCaseTextFormatter()],
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(5),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          // ignore: unnecessary_const
+                                          const BorderRadius.all(
+                                              const Radius.circular(5)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    labelText: 'Cidade/UF',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                          ]),
                     ),
                     const SizedBox(height: 16.0),
                     const Text('Satisfeito com o sistema?'),
@@ -196,8 +495,27 @@ class LancaLead extends StatelessWidget {
                     ),
                     TextField(
                       onChanged: (value) => controller.escritorio.value = value,
-                      decoration: const InputDecoration(
-                          labelText: 'Escritório Contábil'),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              // ignore: unnecessary_const
+                              const BorderRadius.all(const Radius.circular(5)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        labelText: 'Escritório Contábil',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
                     ),
                     const SizedBox(height: 16.0),
                     Obx(
@@ -230,11 +548,33 @@ class LancaLead extends StatelessWidget {
                           : 'Nenhuma data selecionada';
                       return Text(dateText);
                     }),
+                    const SizedBox(height: 10.0),
                     TextField(
                         onChanged: (value) =>
                             controller.observacao.value = value,
-                        decoration:
-                            const InputDecoration(labelText: 'Observação'),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                              borderSide: BorderSide(
+                                  color:
+                                      Theme.of(context).colorScheme.primary)),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                // ignore: unnecessary_const
+                                const BorderRadius.all(
+                                    const Radius.circular(5)),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          labelText: 'Observação',
+                          labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
                         maxLines: 5),
                     const SizedBox(height: 16.0),
                     Obx(() => Text(

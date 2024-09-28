@@ -16,6 +16,13 @@ class LeadsController extends GetxController {
   final RxString observacao = ''.obs;
   final RxString sistema = ''.obs;
   final RxString valor = ''.obs;
+
+  final RxString endRua = ''.obs;
+  final RxString endNumero = ''.obs;
+  final RxString endComplemento = ''.obs;
+  final RxString endBairro = ''.obs;
+  final RxString endCidade = ''.obs;
+
   final RxInt satisfeito = 2.obs;
   final RxInt suporte = 2.obs;
   final RxInt atendimento = 2.obs;
