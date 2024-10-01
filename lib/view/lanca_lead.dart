@@ -287,80 +287,80 @@ class LancaLead extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextField(
-                                  onChanged: (value) =>
-                                      controller.endComplemento.value = value,
-                                  inputFormatters: [UpperCaseTextFormatter()],
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(5),
-                                        ),
-                                        borderSide: BorderSide(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary)),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          // ignore: unnecessary_const
-                                          const BorderRadius.all(
-                                              const Radius.circular(5)),
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary),
-                                    ),
-                                    border: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
-                                    ),
-                                    labelText: 'Complemento',
-                                    labelStyle: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextField(
-                                  onChanged: (value) =>
-                                      controller.endCidade.value = value,
-                                  inputFormatters: [UpperCaseTextFormatter()],
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(5),
-                                        ),
-                                        borderSide: BorderSide(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary)),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          // ignore: unnecessary_const
-                                          const BorderRadius.all(
-                                              const Radius.circular(5)),
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary),
-                                    ),
-                                    border: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
-                                    ),
-                                    labelText: 'Cidade/UF',
-                                    labelStyle: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary),
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: TextField(
+                              //     onChanged: (value) =>
+                              //         controller.endComplemento.value = value,
+                              //     inputFormatters: [UpperCaseTextFormatter()],
+                              //     decoration: InputDecoration(
+                              //       enabledBorder: OutlineInputBorder(
+                              //           borderRadius: const BorderRadius.all(
+                              //             Radius.circular(5),
+                              //           ),
+                              //           borderSide: BorderSide(
+                              //               color: Theme.of(context)
+                              //                   .colorScheme
+                              //                   .primary)),
+                              //       focusedBorder: OutlineInputBorder(
+                              //         borderRadius:
+                              //             // ignore: unnecessary_const
+                              //             const BorderRadius.all(
+                              //                 const Radius.circular(5)),
+                              //         borderSide: BorderSide(
+                              //             color: Theme.of(context)
+                              //                 .colorScheme
+                              //                 .primary),
+                              //       ),
+                              //       border: const OutlineInputBorder(
+                              //         borderRadius:
+                              //             BorderRadius.all(Radius.circular(5)),
+                              //       ),
+                              //       labelText: 'Complemento',
+                              //       labelStyle: TextStyle(
+                              //           color: Theme.of(context)
+                              //               .colorScheme
+                              //               .primary),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: TextField(
+                              //     onChanged: (value) =>
+                              //         controller.endCidade.value = value,
+                              //     inputFormatters: [UpperCaseTextFormatter()],
+                              //     decoration: InputDecoration(
+                              //       enabledBorder: OutlineInputBorder(
+                              //           borderRadius: const BorderRadius.all(
+                              //             Radius.circular(5),
+                              //           ),
+                              //           borderSide: BorderSide(
+                              //               color: Theme.of(context)
+                              //                   .colorScheme
+                              //                   .primary)),
+                              //       focusedBorder: OutlineInputBorder(
+                              //         borderRadius:
+                              //             // ignore: unnecessary_const
+                              //             const BorderRadius.all(
+                              //                 const Radius.circular(5)),
+                              //         borderSide: BorderSide(
+                              //             color: Theme.of(context)
+                              //                 .colorScheme
+                              //                 .primary),
+                              //       ),
+                              //       border: const OutlineInputBorder(
+                              //         borderRadius:
+                              //             BorderRadius.all(Radius.circular(5)),
+                              //       ),
+                              //       labelText: 'Cidade/UF',
+                              //       labelStyle: TextStyle(
+                              //           color: Theme.of(context)
+                              //               .colorScheme
+                              //               .primary),
+                              //     ),
+                              //   ),
+                              // ),
                             ]),
                           ]),
                     ),
@@ -495,6 +495,7 @@ class LancaLead extends StatelessWidget {
                     ),
                     TextField(
                       onChanged: (value) => controller.escritorio.value = value,
+                      inputFormatters: [UpperCaseTextFormatter()],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(

@@ -137,6 +137,11 @@ class LeadsController extends GetxController {
           'escritorio': escritorio.value,
           'dataVoltaAtendimento': selectedDate.value,
           'dataCriacao': DateFormat('dd/MM/yyyy').format(dataCriacao.value),
+          'endereco': {
+            'rua': endRua.value,
+            'numero': endNumero.value,
+            'bairro': endBairro.value,
+          }
         });
 
         Get.find<LeadsController>().fetchLeads();
