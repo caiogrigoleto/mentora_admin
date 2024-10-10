@@ -21,6 +21,7 @@ class AuthController extends GetxController {
   final usernameController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
   final username = ''.obs;
+  final password = ''.obs;
 
   User? get user => _firebaseUser.value;
   SettingsController settingsController = Get.find<SettingsController>();
@@ -58,6 +59,7 @@ class AuthController extends GetxController {
           password == credentials['password']) {
         settingsController.loadUserSettings();
         getUsername();
+        getPassword();
         Get.to(Principal());
       } else {
         Get.snackbar('Usuário ou senha inválidos', '',
@@ -72,6 +74,7 @@ class AuthController extends GetxController {
         settingsController.loadUserSettings();
         storage.saveCredentials(email, password);
         getUsername();
+        getPassword();
         Get.to(Principal());
       } catch (e) {
         Get.snackbar('Error', e.toString());
@@ -93,6 +96,10 @@ class AuthController extends GetxController {
 
   void getUsername() {
     username.value = usernameController.value.text;
+  }
+
+  void getPassword() {
+    password.value = passwordController.value.text;
   }
 
   void setUsername(String username) {

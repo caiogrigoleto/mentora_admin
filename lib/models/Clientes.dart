@@ -171,10 +171,16 @@ class ClientesModel {
     dtaDesbloqueio = json['dtaDesbloqueio'];
     desRazaoSocialContador = json['desRazaoSocialContador'];
     desEmailContador = json['desEmailContador'];
-    valContratacao = 0.0; //double.parse(json['valContratacao']);
-    valDistribuidor = 0.0; //double.parse(json['valDistribuidor']);
-    valSubRevenda = 0.0; //double.parse(json['valSubRevenda']);
-    valTerceiros = 0.0; //double.parse(json['valTerceiros']);
+    valContratacao = json['valContratacao'].toDouble();
+    valFabricante = json['valFabricante'].toDouble();
+    valDistribuidor = (json['valDistribuidor'] != null)
+        ? json['valDistribuidor'].toDouble()
+        : 0.0;
+    valSubRevenda = (json['valSubRevenda'] != null)
+        ? json['valSubRevenda'].toDouble()
+        : 0.0;
+    valTerceiros =
+        (json['valTerceiros'] != null) ? json['valTerceiros'].toDouble() : 0.0;
     flgModuloNfse = json['flgModuloNfse'];
     flgModuloVenda = json['flgModuloVenda'];
     flgModuloSATNFCeNFe = json['flgModuloSATNFCeNFe'];

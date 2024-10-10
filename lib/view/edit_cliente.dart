@@ -157,37 +157,46 @@ class EditClientScreen extends StatelessWidget {
               child: ListView(
                 children: [
                   TextFormField(
-                    initialValue:
-                        editClientController.valContratacao.value.toString(),
-                    decoration:
-                        const InputDecoration(labelText: 'Valor Contratação'),
+                    initialValue: editClientController.valContratacao.value!
+                        .toStringAsFixed(2)
+                        .replaceAll('.', ','),
+                    decoration: const InputDecoration(
+                      labelText: 'Valor Contratação',
+                      prefixText: 'R\$ ',
+                    ),
                     onSaved: (value) => editClientController
                         .valContratacao.value = double.parse(value!),
                   ),
                   TextFormField(
-                    initialValue:
-                        editClientController.valDistribuidor.value.toString(),
-                    decoration:
-                        const InputDecoration(labelText: 'Valor Distribuidor'),
+                    readOnly: true,
+                    initialValue: editClientController.valDistribuidor.value!
+                        .toStringAsFixed(2)
+                        .replaceAll('.', ','),
+                    decoration: const InputDecoration(
+                        labelText: 'Valor Distribuidor', prefixText: 'R\$ '),
                     onSaved: (value) => editClientController
                         .valDistribuidor.value = double.parse(value!),
                   ),
-                  TextFormField(
-                    initialValue:
-                        editClientController.valFabricante.value.toString(),
-                    decoration:
-                        const InputDecoration(labelText: 'Valor Fabricante'),
-                    onSaved: (value) => editClientController
-                        .valFabricante.value = double.parse(value!),
-                  ),
-                  TextFormField(
-                    initialValue:
-                        editClientController.valTerceiros.value.toString(),
-                    decoration:
-                        const InputDecoration(labelText: 'Valor Terceiros'),
-                    onSaved: (value) => editClientController
-                        .valTerceiros.value = double.parse(value!),
-                  ),
+                  // TextFormField(
+                  //   readOnly: true,
+                  //   initialValue: editClientController.valFabricante.value!
+                  //       .toStringAsFixed(2)
+                  //       .replaceAll('.', ','),
+                  //   decoration: const InputDecoration(
+                  //       labelText: 'Valor Fabricante', prefixText: 'R\$ '),
+                  //   onSaved: (value) => editClientController
+                  //       .valFabricante.value = double.parse(value!),
+                  // ),
+                  // TextFormField(
+                  //   readOnly: true,
+                  //   initialValue: editClientController.valTerceiros.value!
+                  //       .toStringAsFixed(2)
+                  //       .replaceAll('.', ','),
+                  //   decoration: const InputDecoration(
+                  //       labelText: 'Valor Terceiros', prefixText: 'R\$ '),
+                  //   onSaved: (value) => editClientController
+                  //       .valTerceiros.value = double.parse(value!),
+                  // ),
                 ],
               ),
             ),

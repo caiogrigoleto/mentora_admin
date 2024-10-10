@@ -31,6 +31,12 @@ class _ListaClientesState extends State<ListaClientes> {
     revendaController.addListener(_filterClients);
   }
 
+  // Método para calcular a soma de valContratacao
+  double get totalValContratado {
+    return filteredClients.fold(
+        0.0, (sum, client) => sum + (client.valContratacao ?? 0.0));
+  }
+
   void _filterClients() {
     final query = searchController.text.toUpperCase();
     final revendaQuery = revendaController.text.toUpperCase();
@@ -48,17 +54,27 @@ class _ListaClientesState extends State<ListaClientes> {
 
       final matchesFilter = selectedFilter.value == ''
           ? true
-          : selectedFilter.value == 'Bloqueados'
-              ? client.flgBloqueado == true
-              : selectedFilter.value == 'Cancelados'
-                  ? client.flgCancelado ==
-                      true // assuming there is an `isCancelled` field
-                  : selectedFilter.value == 'Código da Revenda'
-                      ? client.revendaId
-                              ?.toUpperCase()
-                              .contains(revendaQuery) ??
-                          false
-                      : false;
+          : selectedFilter.value == 'Contratados'
+              ? (client.dtaContratacao != null &&
+                  client.flgBloqueado == false &&
+                  client.flgCancelado == false)
+              : selectedFilter.value == 'Em Trial'
+                  ? (client.dtaContratacao == null &&
+                      client.flgBloqueado == false &&
+                      client.flgCancelado == false &&
+                      client.vencimentoTrial != null)
+                  : selectedFilter.value == 'Bloqueados'
+                      ? client.flgBloqueado == true
+                      : selectedFilter.value == 'Cancelados'
+                          ? client.flgCancelado == true
+                          : selectedFilter.value == 'Inadimplentes'
+                              ? client.flgInadimplente == true
+                              : selectedFilter.value == 'Código da Revenda'
+                                  ? client.revendaId
+                                          ?.toUpperCase()
+                                          .contains(revendaQuery) ??
+                                      false
+                                  : false;
 
       return matchesQuery && matchesFilter;
     }).toList();
@@ -98,45 +114,50 @@ class _ListaClientesState extends State<ListaClientes> {
                     prefixIcon: const Icon(Icons.search),
                   ),
                 ),
-                Obx(() => Column(
-                      children: [
-                        DropdownButton<String>(
-                          value: selectedFilter.value.isEmpty
-                              ? null
-                              : selectedFilter.value,
-                          hint: const Text('Selecionar Filtro'),
-                          items: <String>[
-                            'Todos',
-                            'Bloqueados',
-                            'Cancelados',
-                            'Código da Revenda'
-                          ].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            selectedFilter.value =
-                                newValue == 'Todos' ? '' : newValue!;
-                            _filterClients();
-                          },
-                        ),
-                        if (selectedFilter.value == 'Código da Revenda')
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: TextField(
-                              controller: revendaController,
-                              decoration: InputDecoration(
-                                hintText: 'Inserir Código da Revenda',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
+                Obx(
+                  () => Column(
+                    children: [
+                      DropdownButton<String>(
+                        value: selectedFilter.value.isEmpty
+                            ? null
+                            : selectedFilter.value,
+                        hint: const Text('Selecionar Filtro'),
+                        items: <String>[
+                          'Todos',
+                          'Contratados',
+                          'Em Trial',
+                          'Bloqueados',
+                          'Cancelados',
+                          'Inadimplentes',
+                          'Código da Revenda'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) {
+                          selectedFilter.value =
+                              newValue == 'Todos' ? '' : newValue!;
+                          _filterClients();
+                        },
+                      ),
+                      if (selectedFilter.value == 'Código da Revenda')
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: TextField(
+                            controller: revendaController,
+                            decoration: InputDecoration(
+                              hintText: 'Inserir Código da Revenda',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ),
-                      ],
-                    )),
+                        ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -145,6 +166,13 @@ class _ListaClientesState extends State<ListaClientes> {
               '${filteredClients.length} clientes encontrados',
             ),
           ),
+          Obx(
+            () => Text(
+              'Total Contratado:  R\$ ${totalValContratado.toStringAsFixed(2).replaceAll('.', ',')}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+          const SizedBox(height: 15),
           Expanded(
             child: Obx(() {
               return ListView.builder(
@@ -215,14 +243,10 @@ class _ListaClientesState extends State<ListaClientes> {
                                 TextButton(
                                   child: const Text('Sim'),
                                   onPressed: () async {
+                                    Get.back();
                                     data.vencimentoTrial = '';
                                     await clientesController
-                                        .updateClient(data)
-                                        .then((value) {
-                                      Get.snackbar('Sucesso!',
-                                          'Trial alterado para mais 5 dias');
-                                      Get.back();
-                                    });
+                                        .aumentaTrial(data.desEmail!);
                                   },
                                 ),
                               ],
@@ -237,7 +261,16 @@ class _ListaClientesState extends State<ListaClientes> {
                           label: 'Trial',
                         ),
                         SlidableAction(
-                          onPressed: (context) {},
+                          onPressed: (context) async {
+                            data.desEmail != null
+                                ? await clientesController
+                                    .resetSenha(data.desEmail!)
+                                : Get.snackbar('Alerta!',
+                                    'Cliente não possui email cadastrado!',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.orange,
+                                    colorText: Colors.white);
+                          },
                           backgroundColor: Colors.orange,
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
